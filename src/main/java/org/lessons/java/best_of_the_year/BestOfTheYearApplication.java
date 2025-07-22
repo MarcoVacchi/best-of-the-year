@@ -13,3 +13,6 @@ public class BestOfTheYearApplication {
 }
 
 
+// Step 1
+
+// Nel progetto aggiungere un controller che risponde alla root dell’applicazione, con un metodo che restituisce una view fatta con Thymeleaf in cui viene stampato un titolo: “Best of the year by …” (al posto dei puntini deve apparire il vostro nome, passato come attributo dal controller attraverso il Model).
