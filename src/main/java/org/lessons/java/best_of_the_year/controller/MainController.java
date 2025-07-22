@@ -8,43 +8,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/")
 
 public class MainController {
     
-    private ArrayList<Movies> moviesList= new ArrayList<>();
+    private ArrayList<Movies> moviesList = new ArrayList<>();
     private ArrayList<Songs> songsList= new ArrayList<>();
-   
-    private String getBestSongs(){
-         Songs song = new Songs("1", "Somebody that i used to know");
+
+    public MainController(){
+
+        Songs song = new Songs("1", "Somebody that i used to know");
         Songs song1 = new Songs("2", "Rap god");
         Songs song2 = new Songs("3", "All eyez on me");
         songsList.add(song);
         songsList.add(song1);
         songsList.add(song2);
-    String title = "";
-    for (Songs songs : songsList) {
-    title += songs.getTitle()+", ";    
-    } return title;
-    }
-
-    private String getBestMovies(){
+    
         Movies movie = new Movies("1", "Titanic");
         Movies movie1 = new Movies("2", "La bella e la bestia");
         Movies movie2 = new Movies("3", "Fuga da alkatraz");
         moviesList.add(movie);
         moviesList.add(movie1);
         moviesList.add(movie2);
+    };
+
+    private String getBestSongs(){
+    String title = "";
+    for (Songs songs : songsList) {
+    title += songs.getTitle()+", ";    
+        } return title;
+    }
+
+    private String getBestMovies(){
     String title = "";
     for (Movies movies : moviesList) {
     title += movies.getTitle()+", ";    
-    } return title;
+        } return title;
     }
 
     //STEP 4
@@ -67,6 +69,7 @@ public class MainController {
     //   private String getBestSongs(){
 
     //   private ArrayList<Songs> songList = new ArrayList<>();
+
     //     Songs song = new Songs("1", "Somebody that i used to know");
     //     Songs song1 = new Songs("2", "Rap god");
     //     Songs song2 = new Songs("3", "All eyez on me");
@@ -75,7 +78,29 @@ public class MainController {
     //     songList.add(song2);
     //     return songList.toString();
     // }
-    
+
+    @GetMapping("/movies/{id}")
+    private String getTitleMovie(Model model, @PathVariable ("id") String idMovie){
+        for (Movies movie : moviesList) {   
+            if (movie.getId().equalsIgnoreCase(idMovie)) {
+                model.addAttribute("movie", movie.getTitle());
+                return "movieDetail";
+            }
+        }
+        return "error"; 
+    }
+
+    @GetMapping("/songs/{id}")
+    private String getTitleSong(Model model, @PathVariable ("id") String idSong){
+        for (Songs song: songsList ){
+            if (song.getId().equalsIgnoreCase(idSong)) {
+                model.addAttribute("song", song.getTitle());
+                return "songDetail";    
+            }  
+        }
+        return "error";
+    }
+
   @GetMapping("/movies")
     private String getTitleMovies(Model model) {
         model.addAttribute("title", getBestMovies());
@@ -96,23 +121,3 @@ public class MainController {
     }
 
 }
-
-// Step 2
-// Creare all’interno del controller due metodi privati :
-// uno restituisce una lista di oggetti di tipo Movie - getBestMovies()
-// l’altro restituisce una lista di oggetti di tipo Song - getBestSongs()
-
-// Creare le classi Movie e Song aventi almeno :
-// un id
-// un titolo
-
-// Aggiungere al controller altri due metodi, che rispondono agli url
-// “/movies”
-// “/songs”
-
-// In ognuno di questi metodi aggiungere al Model un attributo stringa con una
-// lista di titoli di migliori film o canzoni (in base al metodo che stiamo
-// implementando) separati da virgole. Utilizzare i due metodi getBest… per
-// recuperare i film e le canzoni.
-
-// Creare i rispettivi template Thymeleaf.

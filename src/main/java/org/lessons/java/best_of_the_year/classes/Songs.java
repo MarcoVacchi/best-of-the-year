@@ -29,7 +29,7 @@ public class Songs {
     }
     
      @Override
-    public String toString() {
-        return "ID: " + id + ", Title: " + title;
+   public String toString() {
+        return  "Title: " + title + "id";
     }
 }
