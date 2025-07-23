@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <th:block th:replace="~{fragments :: bootstrap}">
+    </th:block>
 </head>
 
 <body>
-    <div>
-        <ul>
-            <li th:each="song : ${songs}" th:text="${song.title}"></li>
+    <th:block th:replace="~{fragments:: navBar}"></th:block>
+    <div class="container-sm mt-5">
+        <h2 class="text-center mt-3 mb-3">Best Songs</h2>
+        <ul class="list-group text-center">
+            <li class="list-group-item list-group-item-action" th:each="song : ${songs}">
+                <a th:href="@{'/songs/' + ${song.id}}" th:text="${song.title}"></a>
+            </li>
         </ul>
     </div>
 </body>

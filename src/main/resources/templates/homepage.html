@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Homepage</title>
+    <th:block th:replace="~{fragments :: bootstrap}"></th:block>
+
 </head>
+
 <body>
-    <h1>Sono homepage</h1>
-    <h2 th:text="|${title} ${name}|"/> 
+    <th:block th:replace="~{fragments :: navBar}"></th:block>
+    <h1 class="text-center mb-5">Best of by..</h1>
+    <div class="card mx-auto" style="width: 18rem;">
+        <img th:src="@{/tramonto.jpg}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+                content.</p>
+        </div>
+    </div>
 </body>
+
 </html>

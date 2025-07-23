@@ -52,6 +52,7 @@ public class MainController {
         for (Movies movie : moviesList) {
             if (movie.getId().equalsIgnoreCase(idMovie)) {
                 model.addAttribute("movie", movie.getTitle());
+                model.addAttribute("id", movie.getId());
                 return "movieDetail";
             }
         }
